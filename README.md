@@ -40,6 +40,16 @@ Fedora:
     git -C /tmp clone https://github.com/vinceliuice/Graphite-kde-theme
     cp -r /tmp/Graphite-kde-theme/Kvantum/Graphite $HOME/.config/Kvantum
     
+ Now go to Preferences -> Appearance -> Qt Style and change it to <code>kvantum-dark</code>. Alternatively, you can change it at <code>~/.config/lxqt/lxqt.conf</code> modifying these lines (you will need to restart LXQt):
+ 
+    [Qt]
+    style=kvantum-dark
+    
+    [General]
+    theme=system
+    
+  ### Change color scheme (optional)
+    
  This theme is tricky, because if we want another color scheme than the default, it must be changed manually. It is sufficient to use any "find & replace" tool, but we are using Sed via CLI. Also, I'm assuming that the dark variant is the chosen one.
     
     # Change to blackness color scheme.
@@ -51,4 +61,3 @@ Fedora:
     
     # Only do this if some menus text look weird with the new accent color.
     sed -i 's/text.focus.color=#dfdfdf/text.focus.color=white/g' $HOME/.config/Kvantum/Graphite/GraphiteDark.kvconfig
-   
