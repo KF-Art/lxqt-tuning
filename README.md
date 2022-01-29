@@ -25,9 +25,14 @@ OpenSUSE:
 
     # zypper in kvantum-manager{,lang}
   
-Debian and Ubuntu:
+Debian and Ubuntu 20.04+:
 
-    # apt update && apt install qt5-style-kvantum{,l10n}
+    # apt update && apt install qt5-style-kvantum{,-l10n}
+    
+Ubuntu 18.04 and previous:
+    
+    # add-apt-repository ppa:papirus/papirus
+    # apt update && apt install qt5-style-kvantum{,-l10n}
   
 Fedora:
 
