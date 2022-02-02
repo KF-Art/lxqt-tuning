@@ -236,14 +236,17 @@ Before we change the window manager at our environment, we must hide the Fluxbox
     echo "session.screen0.toolbar.visible:	false" | tee -a "$HOME/.fluxbox/init"
 
 Go to Preferences -> LXQt Settings -> Session Settings and change the window manager to Fluxbox. After that logout. 
-If you find that the panel does not display correctly, then create a script (you will need to install <code>psmisc</code> if your distro does not have it already):
 
-    #!/bin/bash
-    function checkwm {
-    pgrep -u $UID -x fluxbox
-    exitstatus=$?
-    }
+If you find that the panel does not display correctly, then create add an autostart entry (you will need to install <code>psmisc</code> if your distro does not have it already) with the following command: <code>killall -q fluxbox; sleep 1; fluxbox</code>, marking the "wait for tray" option. Alternatively, you can create the entry manually:
 
-    killall -q lxqt-panel
-    while [ exitstatus = 1 ]; do checkwm; sleep 1; done
-    lxqt-panel &
+    # $HOME/.config/autostart/wait-panel.desktop
+    [Desktop Entry]
+    Exec=killall -q fluxbox; sleep 1; fluxbox
+    Name=Wait for panel
+    Type=Application
+    Version=1.0
+    X-LXQt-Need-Tray=true
+
+This will restart Fluxbox once the panel is fully loaded.
+
+    
