@@ -72,3 +72,11 @@ Fedora:
     
     # Only do this if some menus text look weird with the new accent color.
     sed -i 's/text.focus.color=#dfdfdf/text.focus.color=white/g' $HOME/.config/Kvantum/Graphite/GraphiteDark.kvconfig
+
+## Install Graphite GTK theme
+In order to preserve the desktop consistency, we'll also be using the GTK variant of Graphite. I'm choosing the blackness version too. Change the theme color scheme by the one you prefer or use <code>all</code> to install all of them. The <code>rimless</code> parameter is to avoid the color border in apps like Firefox.
+
+    git -C /tmp clone https://github.com/vinceliuice/Graphite-gtk-theme
+    cd /tmp/Graphite-gtk-theme
+    ./install.sh --theme teal -color all --tweaks black rimless
+    
