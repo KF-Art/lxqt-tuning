@@ -97,6 +97,12 @@ There is a lot of beautiful icon themes, but I will focus on two: Reversal and T
 
     git -C /tmp clone https://github.com/vinceliuice/Tela-icon-theme
     cd /tmp/Tela-icon-theme
-    ./install.sh manjaro -c # use -a to install all variants
+    ./install.sh manjaro # use -a to install all variants
 
+## Apply icon theme
+
+Go to Preferences -> LXQt Settings -> Appearance -> Icons Theme and choose the one you installed. This also can be done manually at <code>~/.config/lxqt/lxqt.conf</code> (Requires restart LXQt):
+
+    [General]
+    icon_theme=your_icon_theme
 
