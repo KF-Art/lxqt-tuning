@@ -162,5 +162,75 @@ Finally, update the font cache and list.
 
 ## Apply UI font
 
-Go to Preferences -> LXQt Settings -> Appearance -> Font, and select our new installed font at "Font name". Also, adjust the size accordingly to your screen. Do the same process for PCManFM-Qt desktop, doing right click -> Desktop Preferences -> Select font.
+Go to Preferences -> LXQt Settings -> Appearance -> Font, and select out new installed font at "Font name". Also, adjust the size accordingly to your screen. Do the same process for PCManFM-Qt desktop, doing right click -> Desktop Preferences -> Select font (I recommend to change the wallpaper also).
 
+Alternatively, you can do this at <code>~/.config/lxqt/lxqt.conf</code> and </code>~/.config/pcmanfm-qt/lxqt</code>, respectively (requires restart LXQt):
+
+    # ~/.config/lxqt/lxqt.conf
+    [Qt]
+    font="Roboto,11,-1,5,50,0,0,0,0,0"
+
+
+    # ~/.config/pcmanfm-qt/lxqt
+    [Desktop]
+    Font="Roboto,10,-1,5,50,0,0,0,0,0,Regular"
+
+# Window Manager
+The window manager is one of the most important things in our desktop environment, so we must customize it too. The main focus will be the default WM, Openbox; but also I'll include instructions to integrate it with Fluxbox, and maybe in the future, i3wm.
+
+## Openbox
+
+### Install a theme
+
+The chosen theme is Licorice, from Sweet Tastes Themes. We'll make some changes to adapt and integrate with Graphite color scheme, and enable window title (if wanted). First we need to clone the theme repository, and copy it to our home directory.
+    
+    git -C /tmp clone https://www.opencode.net/ju1464/Sweet_Tastes_Themes.git
+    cp -r /tmp/Sweet_Tastes_Themes/Licorice ~/.local/share/themes
+
+Next, we will change the color scheme in order to keep the desktop consistency with our installed theme:
+
+    obtheme=$HOME/.local/share/themes/Licorice/openbox-3/themerc
+    sed -i 's/#282828/#0f0f0f/g' $obtheme
+    sed -i 's/#464141/#0f0f0f/g' $obtheme
+    sed -i 's/window.inactive.label.text.color: #0f0f0f/window.inactive.label.text.color: #ffffff/g' $obtheme
+    sed -i 's/window.active.label.text.color: #0f0f0f/window.active.label.text.color: #ffffff/g' $obtheme
+    
+### Apply theme and change fonts
+
+Go to Preferences -> Openbox Settings, and select the Licorice theme, also go to Fonts section and change them all to Roboto, or your preferred font. This also can be done at <code>~/.config/openbox/rc.xml</code>.
+
+## Fluxbox
+
+It would appear strange use Fluxbox instead of Openbox on LXQt, but is has a lot of potential for our LXQt desktop. Mainly on the point of configuring manual tiling (which I didn't get to work at Openbox). First, of course, install Fluxbox:
+
+Void Linux:
+
+    # xbps-install -S fluxbox
+
+Arch Linux, Manjaro and derivatives:
+
+    # pacman -S fluxbox
+
+OpenSUSE:
+
+    # zypper refresh && zypper in fluxbox
+
+Debian, Ubuntu and derivatives:
+
+    # apt update && apt install fluxbox
+
+FreeBSD:
+
+    # pkg install fluxbox
+
+Once installed, copy the example configuration to your home directory. Commonly, into GNU/Linux distributions is located at <code>/usr/share/fluxbox</code> and into FreeBSD <code>/usr/local/share/fluxbox</code>:
+
+    # GNU/Linux
+    cp -r /usr/share/fluxbox $HOME/
+
+    # FreeBSD
+    cp -r /usr/local/share/fluxbox
+
+Before we change the window manager at our environment, we must hide the Fluxbox's panel (called toolbar), to avoid conflicts with LXQt's panel:
+
+    echo "session.screen0.toolbar.visible:	false" | tee -a "$HOME/.fluxbox/init"
