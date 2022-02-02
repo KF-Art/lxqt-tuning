@@ -64,6 +64,7 @@ Fedora:
     
     # Change to blackness color scheme.
     sed -i 's/#2c2c2c/#0f0f0f/g' $HOME/.config/Kvantum/Graphite/GraphiteDark.{kvconfig,svg}
+    sed -i 's/#3c3c3c/#0f0f0f/g' $HOME/.config/Kvantum/Graphite/GraphiteDark.svg
     
     # Accent color (optional)
     # Replace the #4DB6AC (Teal) accent color by the one you prefer.
