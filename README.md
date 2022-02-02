@@ -45,7 +45,7 @@ Fedora:
     git -C /tmp clone https://github.com/vinceliuice/Graphite-kde-theme
     cp -r /tmp/Graphite-kde-theme/Kvantum/Graphite $HOME/.config/Kvantum
     
- Open Kvantum Manager and select our new installed theme. Also, you can do it via CLI:
+ Open Kvantum Manager and select our new installed theme. Also, you can do it via CLI (if the file already exists):
  
     sed -i 's/theme=/#theme=/g' $HOME/.config/Kvantum/kvantum.kvconfig
     echo "theme=GraphiteDark" | tee -a $HOME/.config/Kvantum/kvantum.kvconfig
