@@ -234,3 +234,16 @@ Once installed, copy the example configuration to your home directory. Commonly,
 Before we change the window manager at our environment, we must hide the Fluxbox's panel (called toolbar), to avoid conflicts with LXQt's panel:
 
     echo "session.screen0.toolbar.visible:	false" | tee -a "$HOME/.fluxbox/init"
+
+Go to Preferences -> LXQt Settings -> Session Settings and change the window manager to Fluxbox. After that logout. 
+If you find that the panel does not display correctly, then create a script (you will need to install <code>psmisc</code> if your distro does not have it already):
+
+    #!/bin/bash
+    function checkwm {
+    pgrep -u $UID -x fluxbox
+    exitstatus=$?
+    }
+
+    killall -q lxqt-panel
+    while [ exitstatus = 1 ]; do checkwm; sleep 1; done
+    lxqt-panel &
