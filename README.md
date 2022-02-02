@@ -162,5 +162,5 @@ Finally, update the font cache and list.
 
 ## Apply UI font
 
-Go to Preferences -> LXQt Settings -> Appearance -> Font, and select out new installed font at "Font name". Also, adjust the size accordingly to your screen. Do the same process for PCManFM-Qt desktop, doing right click -> Desktop Preferences -> Select font.
+Go to Preferences -> LXQt Settings -> Appearance -> Font, and select our new installed font at "Font name". Also, adjust the size accordingly to your screen. Do the same process for PCManFM-Qt desktop, doing right click -> Desktop Preferences -> Select font.
 
