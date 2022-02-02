@@ -78,5 +78,5 @@ In order to preserve the desktop consistency, we'll also be using the GTK varian
 
     git -C /tmp clone https://github.com/vinceliuice/Graphite-gtk-theme
     cd /tmp/Graphite-gtk-theme
-    ./install.sh --theme teal -color all --tweaks black rimless
+    ./install.sh --theme teal --tweaks black rimless
     
