@@ -74,9 +74,29 @@ Fedora:
     sed -i 's/text.focus.color=#dfdfdf/text.focus.color=white/g' $HOME/.config/Kvantum/Graphite/GraphiteDark.kvconfig
 
 ## Install Graphite GTK theme
+
 In order to preserve the desktop consistency, we'll also be using the GTK variant of Graphite. I'm choosing the blackness version too. Change the theme color scheme by the one you prefer or use <code>all</code> to install all of them. The <code>rimless</code> parameter is to avoid the color border in apps like Firefox.
 
     git -C /tmp clone https://github.com/vinceliuice/Graphite-gtk-theme
     cd /tmp/Graphite-gtk-theme
-    ./install.sh --theme teal --tweaks black rimless
+    ./install.sh --theme teal --tweaks black rimless -d $HOME/.local/share/themes
     
+Now we need to go to Preferences -> LXQt Settings -> Appearance, check the "Set GTK themes" option and select the recently installed theme.
+
+# Icon theme
+
+There is a lot of beautiful icon themes, but I will focus on two: Reversal and Tela. Feel free to install any icon theme that you want.
+
+## Reversal icon theme
+
+    git -C /tmp clone https://github.com/yeyushengfan258/Reversal-icon-theme
+    cd /tmp/Reversal-icon-theme
+    ./install.sh green # by default install all variants
+
+## Tela icon theme
+
+    git -C /tmp clone https://github.com/vinceliuice/Tela-icon-theme
+    cd /tmp/Tela-icon-theme
+    ./install.sh manjaro -c # use -a to install all variants
+
+
