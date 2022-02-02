@@ -16,14 +16,10 @@ Void Linux:
 Arch Linux and Manjaro:
 
     # pacman -S kvantum-qt5
-    
-FreeBSD:
-
-    # pkg install kvantum-qt5
   
 OpenSUSE:
 
-    # zypper in kvantum-manager{,lang}
+    # zypper refresh && zypper in kvantum-manager{,lang}
   
 Debian and Ubuntu 20.04+:
 
@@ -37,6 +33,10 @@ Ubuntu 18.04 and previous:
 Fedora:
 
     # dnf install kvantum
+
+FreeBSD:
+
+    # pkg install kvantum-qt5
     
  ## Install Graphite Kvantum theme
  
@@ -105,4 +105,59 @@ Go to Preferences -> LXQt Settings -> Appearance -> Icons Theme and choose the o
 
     [General]
     icon_theme=your_icon_theme
+
+# Install well-looking fonts
+
+It is important to use a pretty font, because it will make our desktop look more beautiful and elegant. 
+
+## UI font
+
+In this case I recommend Roboto, which is on almost all distributions, is well-looking and elegant.
+
+Void Linux:
+
+    # xbps-install -S fonts-roboto-ttf
+
+Arch Linux, Manjaro and derivatives:
+
+    # pacman -S roboto-ttf
+
+OpenSUSE:
+
+    # zypper refresh && zypper in google-roboto-fonts
+
+Debian, Ubuntu and derivatives:
+
+    # apt update && apt install fonts-roboto
+
+Fedora:
+
+    # dnf install google-roboto-fonts
+
+FreeBSD:
+
+    # pkg install fonts-roboto-ttf
+
+## Monospace font
+
+Currently, my favorite monospace font is JetBrains Mono NL. So, we will install it. This process will be universal for all distributions. You can use any font you like, of course.
+
+First, fetch the font itself:
+
+    mkdir /tmp/JetBrains-Mono && cd /tmp/JetBrains-Mono
+    wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/           JetBrainsMono-2.242.zip
+    unzip JetBrainsMono-2.242.zip
+
+Now, the installation path will vary among GNU/Linux and FreeBSD. 
+
+    #GNU/Linux
+    sudo cp -r fonts /usr/share
+
+    #FreeBSD
+    sudo cp -r fonts /usr/local/share
+
+Finally, update the font cache and list.
+
+    fc-cache -fv; fc-list
+
 
