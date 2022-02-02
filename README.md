@@ -145,10 +145,10 @@ Currently, my favorite monospace font is JetBrains Mono NL. So, we will install 
 First, fetch the font itself:
 
     mkdir /tmp/JetBrains-Mono && cd /tmp/JetBrains-Mono
-    wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/           JetBrainsMono-2.242.zip
+    wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip
     unzip JetBrainsMono-2.242.zip
 
-Now, the installation path will vary among GNU/Linux and FreeBSD. 
+Now, the installation path will vary between GNU/Linux and FreeBSD. 
 
     #GNU/Linux
     sudo cp -r fonts /usr/share
@@ -160,4 +160,7 @@ Finally, update the font cache and list.
 
     fc-cache -fv; fc-list
 
+## Apply UI font
+
+Go to Preferences -> LXQt Settings -> Appearance -> Font, and select out new installed font at "Font name". Also, adjust the size accordingly to your screen. Do the same process for PCManFM-Qt desktop, doing right click -> Desktop Preferences -> Select font.
 
