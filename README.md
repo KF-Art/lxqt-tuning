@@ -43,7 +43,7 @@ Fedora:
  I will be using Vinceliuice's Graphite themes, but you can choose any that you want.
  
     git -C /tmp clone https://github.com/vinceliuice/Graphite-kde-theme
-    cp -r /tmp/Graphite-kde-theme/Kvantum/Graphite $HOME/.config/Kvantum
+    cp -r /tmp/Graphite-kde-theme/Kvantum $HOME/.config/Kvantum
     
  Open Kvantum Manager and select our new installed theme. Also, you can do it via CLI (if the file already exists):
  
