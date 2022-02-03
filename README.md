@@ -175,6 +175,58 @@ Alternatively, you can do this at <code>~/.config/lxqt/lxqt.conf</code> and </co
     [Desktop]
     Font="Roboto,10,-1,5,50,0,0,0,0,0,Regular"
 
+# Lockscreen
+
+LXQt by default does not provides a lockscreen service, using instead <code>xscreensaver</code> (which is ugly for me). We will be using Betterlockscreen, which uses i3lock-color. For the moment I will only provide Void, OpenSUSE, Arch and FreeBSD installation steps. The rest of distros will come in the future.
+
+## Install betterlockscreen
+
+### Void Linux
+
+    # xbps-install -S betterlockscreen
+
+### Garuda and every Arch based distro with Chaotic AUR
+
+    # pacman -S betterlockscreen
+
+### Arch and derivatives (using Yay in this example)
+
+    # yay -S betterlockscreen
+
+### OpenSUSE
+We will need to "manual" install Betterlockscreen, as it's not in the repositories. The first thing we need is to install <code>opi</code> (if not installed already), which allows us to install OBS software.
+
+    # zypper refresh && zypper in opi
+
+Proceed installing i3lock-color:
+
+    $ opi i3lock-color
+
+Install runtime dependencies:
+
+    # zypper in ImageMagick xdpyinfo feh bc
+
+Clone repository:
+
+    $ git -C /tmp clone https://github.com/betterlockscreen/betterlockscreen
+
+User install:
+
+    $ /tmp/betterlockscreen/install.sh user
+
+System install:
+
+    # /tmp/betterlockscreen/install.sh system
+
+FreeBSD:
+
+## Configure lockscreen background
+
+Before we can use our new lockscreen, we need to set up a background:
+
+    betterlockscreen -u /path/to/your/wallpaper.png
+
+
 # Window Manager
 The window manager is one of the most important things in our desktop environment, so we must customize it too. The main focus will be the default WM, Openbox; but also I'll include instructions to integrate it with Fluxbox, and maybe in the future, i3wm.
 
@@ -253,6 +305,10 @@ If you find that the panel does not display correctly, create this script. I rec
     killall -q fluxbox
     sleep 1; fluxbox &
 
+Make it executable:
+
+    chmod u+x $HOME/scripts/wait-panel.sh
+
 Then add an autostart entry at Preferences -> LXQt Settings -> Session Settings -> Autostart, and choose your recently created script, marking the "wait for tray" option. Alternatively, you can create the entry manually:
     
     # $HOME/.config/autostart/wait-panel.desktop
@@ -319,3 +375,35 @@ As I said before, the main reason why I use LXQt with Fluxbox, is the ability to
     Mod4 KP_4  :MacroCmd {ResizeTo 50% 50%} {MoveTo 0 0 Left}
     Mod4 KP_2 :MacroCmd {ResizeTo 50% 50%} {MoveTo 0 0 Bottom}
 
+### Workspace management (optional)
+
+If like me, you usually work with a lot of workspaces, then I recommend you to configure them also. You can leave the defaults, or configure your own shortcuts at <code>~/.fluxbox/keys</code>. This is an example of mines:
+
+    # change to a specific workspace
+    Alt 1 :Workspace 1
+    Alt 2 :Workspace 2
+    Alt 3 :Workspace 3
+    Alt 4 :Workspace 4
+    Alt 5 :Workspace 5
+    Alt 6 :Workspace 6
+    Alt 7 :Workspace 7
+    Alt 8 :Workspace 8
+    Alt 9 :Workspace 9
+    Alt 0 :Workspace 10
+
+    # send the current window to a specific workspace
+    Alt Shift 1 :SendToWorkspace 1
+    Alt Shift 2 :SendToWorkspace 2
+    Alt Shift 3 :SendToWorkspace 3
+    Alt Shift 4 :SendToWorkspace 4
+    Alt Shift 5 :SendToWorkspace 5
+    Alt Shift 6 :SendToWorkspace 6
+    Alt Shift 7 :SendToWorkspace 7
+    Alt Shift 8 :SendToWorkspace 8
+    Alt Shift 9 :SendToWorkspace 9
+    Alt Shift 0 :SendToWorkspace 10
+
+Also, if you need more or less workspaces, define them at <code>~/.fluxbox/init</code> (replace the names by the ones you prefer):
+
+    session.screen0.workspaces:	5
+    session.screen0.workspaceNames:	1,2,3,4,5,6,7,8,9,10,
