@@ -270,3 +270,31 @@ Now we need to change our current theme. This can be done using our previously d
     echo "session.styleFile:      ~/.fluxbox/styles/Sierra-Dark-Fluxbox" | tee -a $fluxconf
 
 After that, restart Fluxbox with our previously defined shortcut (Alt + Shift + R) to apply all the changes correctly.
+
+### Manual Tiling
+
+As I said before, the main reason why I use LXQt with Fluxbox, is the ability to easily configure the manual tiling. With this, we will be able to tile or snap our windows just pressing Super + Arrows or Numeric Pad. Paste this at <code>~/.config/fluxbox/keys</code>:
+
+    ### MANUAL TILING ###
+    
+    # Move with Super + Arrows:
+    Mod4 Up  :MacroCmd {ResizeTo 100% 50%} {MoveTo 0 0 Top}
+    Mod4 Down :MacroCmd {ResizeTo 100% 50%} {MoveTo 0 0 Bottom}
+    Mod4 Left  :MacroCmd {ResizeTo 50% 100%} {MoveTo 0 0 Left}
+    Mod4 Right :MacroCmd {ResizeTo 50% 100%} {MoveTo 0 0 Right}
+
+    # Reduce size and center:
+    Mod4 KP_5 :MacroCmd {ResizeTo 60% 70%} {MoveTo 0 0 Center}
+
+    # Simple cross tiling, move to corners:
+    Mod4 KP_7  :MacroCmd {ResizeTo 50% 50%} {MoveTo 0 0 TopLeft}
+    Mod4 KP_9 :MacroCmd {ResizeTo 50% 50%} {MoveTo 0 0 TopRight}
+    Mod4 KP_1  :MacroCmd {ResizeTo 50% 50%} {MoveTo 0 0 BottomLeft}
+    Mod4 KP_3 :MacroCmd {ResizeTo 50% 50%} {MoveTo 0 0 BottomRight}
+
+    # Move to the center of every border:
+    Mod4 KP_8  :MacroCmd {ResizeTo 50% 50%} {MoveTo 0 0 Top}
+    Mod4 KP_6 :MacroCmd {ResizeTo 50% 50%} {MoveTo 0 0 Right}
+    Mod4 KP_4  :MacroCmd {ResizeTo 50% 50%} {MoveTo 0 0 Left}
+    Mod4 KP_2 :MacroCmd {ResizeTo 50% 50%} {MoveTo 0 0 Bottom}
+
