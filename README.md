@@ -271,9 +271,22 @@ Now we need to change our current theme. This can be done using our previously d
 
 After that, restart Fluxbox with our previously defined shortcut (Alt + Shift + R) to apply all the changes correctly.
 
+### Panel and Desktop integration
+
+To integrate well the panel and PCManFM-Qt's Desktop, add this to <code>~/.fluxbox/apps</code>:
+
+    [app] (name=LXQt Panel) (class=lxqt-panel)
+        [Layer]       {4}
+    [end]
+
+    [app] (class=pcmanfm-qt) (@_NET_WM_WINDOW_TYPE=_NET_WM_WINDOW_TYPE_DESKTOP)
+        [layer]       {12}
+    [end]
+
+
 ### Manual Tiling
 
-As I said before, the main reason why I use LXQt with Fluxbox, is the ability to easily configure the manual tiling. With this, we will be able to tile or snap our windows just pressing Super + Arrows or Numeric Pad. Paste this at <code>~/.config/fluxbox/keys</code>:
+As I said before, the main reason why I use LXQt with Fluxbox, is the ability to easily configure the manual tiling. With this, we will be able to tile or snap our windows just pressing Super + Arrows or Numeric Pad. Paste this at <code>~/.fluxbox/keys</code>:
 
     ### MANUAL TILING ###
     
