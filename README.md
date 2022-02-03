@@ -245,11 +245,19 @@ Go to Preferences -> LXQt Settings -> Session Settings and change the window man
 
 ### Panel fix
 
-If you find that the panel does not display correctly, then create add an autostart entry at Preferences -> LXQt Settings -> Session Settings -> Autostart (you will need to install <code>psmisc</code> if your distro does not have it already) with the following command: <code>killall -q fluxbox; sleep 1; fluxbox</code>, marking the "wait for tray" option. Alternatively, you can create the entry manually:
+If you find that the panel does not display correctly, create this script. I recommend to save it at <code>~/scripts</code> (you will need to install <code>psmisc</code> if your distro does not have it already):
 
+    #!/bin/sh
+
+    # ~/scripts/wait-panel.sh
+    killall -q fluxbox
+    sleep 1; fluxbox &
+
+Then add an autostart entry at Preferences -> LXQt Settings -> Session Settings -> Autostart, and choose your recently created script, marking the "wait for tray" option. Alternatively, you can create the entry manually:
+    
     # $HOME/.config/autostart/wait-panel.desktop
     [Desktop Entry]
-    Exec=killall -q fluxbox; sleep 1; fluxbox
+    Exec=~/scripts/wait-panel.sh
     Name=Wait for panel
     Type=Application
     Version=1.0
