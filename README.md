@@ -235,9 +235,11 @@ Before we change the window manager at our environment, we must hide the Fluxbox
 
     echo "session.screen0.toolbar.visible:	false" | tee -a "$HOME/.fluxbox/init"
 
-I recommend to set a shortcut to open Fluxbox configuration in case you need it:
+I recommend to set a shortcut to open Fluxbox configuration and other to restart it, in case you need them (Alt + L and Alt + Shift + R, respectively):
 
-    echo "Mod1 L :RootMenu" | tee -a "$HOME/.fluxbox/keys"
+    fluxkeys=$HOME/.fluxbox/keys
+    echo "Mod1 L :RootMenu" | tee -a $fluxkeys
+    echo "Mod1 Shift R :Restart" | tee -a $fluxkeys
 
 Go to Preferences -> LXQt Settings -> Session Settings and change the window manager to Fluxbox. After that logout. 
 
@@ -255,14 +257,16 @@ If you find that the panel does not display correctly, then create add an autost
 
 This will restart Fluxbox once the panel is fully loaded.
 
-# Install Sierra Dark theme
+### Install Sierra Dark theme
 
 I made a fork theme which adapts well with Graphite color scheme. First, clone the repository:
 
-    git -C $HOME/.fluxbox/styles/ https://github.com/KF-Art/Sierra-Dark-Fluxbox
+    git -C $HOME/.fluxbox/styles/ clone https://github.com/KF-Art/Sierra-Dark-Fluxbox
 
 Now we need to change our current theme. This can be done using our previously defined shortcut (Alt + L), then go to Advanced Settings -> Fluxbox -> User Styles, and select our new theme; or via CLI with Sed:
 
     fluxconf=$HOME/.fluxbox/init
     sed -i 's/session.styleFile:/#session.styleFile:/g' $fluxconf
     echo "session.styleFile:      ~/.fluxbox/styles/Sierra-Dark-Fluxbox" | tee -a $fluxconf
+
+After that, restart Fluxbox with our previously defined shortcut (Alt + Shift + R) to apply all the changes correctly.
