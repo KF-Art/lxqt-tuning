@@ -204,7 +204,7 @@ Proceed installing i3lock-color:
 
 Install runtime dependencies:
 
-    # zypper in ImageMagick xdpyinfo feh bc
+    # zypper in ImageMagick xdpyinfo feh bc xrandr
 
 Clone repository:
 
@@ -218,7 +218,23 @@ System install:
 
     # /tmp/betterlockscreen/install.sh system
 
-FreeBSD:
+### FreeBSD
+
+Install runtime dependencies:
+
+    # pkg install ImageMagick7 xdpyinfo feh i3lock-color xrandr
+
+Clone repository:
+
+    $ git -C /tmp clone https://github.com/betterlockscreen/betterlockscreen
+
+User install:
+
+    $ /tmp/betterlockscreen/install.sh user
+
+System install:
+
+    # /tmp/betterlockscreen/install.sh system
 
 ## Configure lockscreen background
 
@@ -226,6 +242,64 @@ Before we can use our new lockscreen, we need to set up a background:
 
     betterlockscreen -u /path/to/your/wallpaper.png
 
+## Set keyboard shortcut
+
+Now configure a shortcut to easily lock your screen. Go to Preferences -> LXQt Settings -> Keyboard Shortcuts, add a new one and set the command <code>betterlockscreen -l</code>. This also can be done at <code>~/.config/lxqt/globalkeyshortcuts.conf</code>. This example uses Super + L (requires restart LXQt):
+
+    [Meta%2BL.40]
+    Comment=Lock the screen
+    Enabled=true
+    Exec=betterlockscreen, -l
+
+# Autolock and suspend
+
+As you may noticed, even installing a lockscreen manager, it will not lock automatically. To do this, we will use <code>xidlehook</code>, which detects keyboard and mouse inactivity and then runs a desired command. XAutolock also exists, but it has the disadvantage of running the command even if we are watching videos, for example.
+
+## Install Xidlehook
+
+### Void Linux
+
+Xidlehook is not at the repositories, but there is PR template which I used to build the package and upload it to GitHub. Also, there is a template available if you need to rebuild and/or update the package. Get your correspondant package for your architecture and libc. For this example I will use the x86_64 (glibc) package. All builds are <a href="https://github.com/KF-Art/xidlehook-void/releases">here</a>.
+
+    $ wget https://github.com/KF-Art/xidlehook-void/releases/download/v0.10.0_1/xidlehook-0.10.0_1.x86_64.xbps
+
+Next, index the new downloaded package and install it.
+
+    $ xbps-rindex -a *.xbps
+    # xbps-install -R . xidlehook
+    
+### Arch Linux and derivatives
+
+If you use an Arch based distribution, then you are lucky. The package is already at AUR. For this example I will be using Yay, but feel free to use any AUR helper.
+
+    $ yay -S xidlehook
+
+## Build Xidlehook on distributions where is not available
+
+From this point, all distributions require to manually build Xidlehook.
+
+### OpenSUSE
+
+First, install build dependencies:
+
+    # zypper in libxcb-devel libXss-devel libpulse0 pkgconf-pkg-config rust cargo
+
+### FreeBSD
+
+Install build dependencies:
+
+    # pkg install libxcb libXScrnSaver pulseaudio pkgconf devel/cargo
+
+### Build
+
+Build Xidlehook:
+
+    $ cargo install xidlehook --bins
+
+This will create two binaries at <code>~/.cargo/bin</code>. You can add this location to PATH, move them to another home location, or move them to <code>/usr/local/bin/</code> to use it at system level. In this case we will do the last one.
+
+    $ cd $HOME/.cargo/bin/
+    # cp ./* /usr/local/bin
 
 # Window Manager
 The window manager is one of the most important things in our desktop environment, so we must customize it too. The main focus will be the default WM, Openbox; but also I'll include instructions to integrate it with Fluxbox, and maybe in the future, i3wm.
