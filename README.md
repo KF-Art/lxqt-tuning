@@ -164,7 +164,7 @@ Finally, update the font cache and list.
 
 Go to Preferences -> LXQt Settings -> Appearance -> Font, and select out new installed font at "Font name". Also, adjust the size accordingly to your screen. Do the same process for PCManFM-Qt desktop, doing right click -> Desktop Preferences -> Select font (I recommend to change the wallpaper also).
 
-Alternatively, you can do this at <code>~/.config/lxqt/lxqt.conf</code> and </code>~/.config/pcmanfm-qt/lxqt</code>, respectively (requires restart LXQt):
+Alternatively, you can do this at <code>$HOME/.config/lxqt/lxqt.conf</code> and <code>$HOME/.config/pcmanfm-qt/lxqt</code>, respectively (requires restart LXQt):
 
     # ~/.config/lxqt/lxqt.conf
     [Qt]
