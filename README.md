@@ -288,18 +288,56 @@ First, install build dependencies:
 
 Install build dependencies:
 
-    # pkg install libxcb libXScrnSaver pulseaudio pkgconf devel/cargo
+    # pkg install libxcb libXScrnSaver pulseaudio pkgconf rust
 
 ### Build
 
 Build Xidlehook:
 
-    $ cargo install xidlehook --bins
+    $ cargo install xidlehook --features pulse --bins
 
 This will create two binaries at <code>~/.cargo/bin</code>. You can add this location to PATH, move them to another home location, or move them to <code>/usr/local/bin/</code> to use it at system level. In this case we will do the last one.
 
     $ cd $HOME/.cargo/bin/
     # cp ./* /usr/local/bin
+
+## Test Xidlehook
+
+Once installed, we must test if Xidlehook works normally. Run this test command:
+
+    xidlehook --not-when-fullscreen --not-when-audio --timer 5 "betterlockscreen -l" "" &
+
+If everything goes well, it should lock the screen passed five seconds of inactivity, except if you are playing audio or a window is fullscreen. You can now kill the process.
+
+## Add Xidlehook to autostart
+
+Me need to create an autostart entry at Preferences -> LXQt Settings -> Session Settings -> Autostart.
+
+At "command" section introduce Xidlehook with your preferred parameters. For example, to lock the screen passed 5 minutes, and then, another 5 minutes later suspend the machine, at SystemD linux distributions:
+
+        xidlehook --not-when-fullscreen --not-when-audio --timer 300 "betterlockscreen -l" "" --timer 300 "systemctl suspend" "" &
+
+Same as above, but for elogind-based distributions:
+
+        xidlehook --not-when-fullscreen --not-when-audio --timer 300 "betterlockscreen -l" "" --timer 300 "loginctl suspend" "" &
+
+To just lock the screen, passed 5 minutes of inactivity:
+
+        xidlehook --not-when-fullscreen --not-when-audio --timer 300 "betterlockscreen -l" "" &
+
+The timer works in seconds. 
+Unfortunately, at FreeBSD I don't find yet a way to suspend the system via command line.
+
+option. Alternatively, you can create the entry manually. For example:
+    
+    # $HOME/.config/autostart/xidlehook.desktop
+    [Desktop Entry]
+    Exec='xidlehook --not-when-fullscreen --not-when-audio --timer 300 "betterlockscreen -l" "" &'
+    Name=Autolock service.
+    Type=Application
+    Version=1.0
+
+Save your entry, logout, login again and <i>voilá</i>, the screen now locks automatically.
 
 # Window Manager
 The window manager is one of the most important things in our desktop environment, so we must customize it too. The main focus will be the default WM, Openbox; but also I'll include instructions to integrate it with Fluxbox, and maybe in the future, i3wm.
