@@ -419,7 +419,7 @@ It is also possible to configure manual tiling on Openbox. Add this code to <cod
       </action>
     </keybind>
 
-An example of how to use this can be found in <a href="https://github.com/CereusLinuxProject/cereus-mklive/blob/master/includedir/lxqt/etc/skel/.config/openbox/rc.xml>"Cereus Linux default Openbox configuration.</a>
+An example of how to use this can be found in <a href="https://github.com/CereusLinuxProject/cereus-mklive/blob/master/includedir/lxqt/etc/skel/.config/openbox/rc.xml">Cereus Linux default Openbox configuration</a>
 
 ## Fluxbox
 
