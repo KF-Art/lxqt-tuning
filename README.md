@@ -60,19 +60,10 @@ FreeBSD:
     
   ### Change color scheme (optional)
     
- This theme is tricky, because if we want another color scheme than the default, it must be changed manually. It is sufficient to use any "find & replace" tool, but we are using Sed via CLI. Also, I'm assuming that the dark variant is the chosen one.
-    
-    # Change to blackness color scheme.
-    sed -i 's/#2c2c2c/#0f0f0f/g' $HOME/.config/Kvantum/Graphite/GraphiteDark.{kvconfig,svg}
-    sed -i 's/#3c3c3c/#0f0f0f/g' $HOME/.config/Kvantum/Graphite/GraphiteDark.svg
-    
-    # Accent color (optional)
-    # Replace the #4DB6AC (Teal) accent color by the one you prefer.
-    sed -i 's/#e0e0e0/#4DB6AC/g' $HOME/.config/Kvantum/Graphite/GraphiteDark.svg
-    
-    # Only do this if some menus text look weird with the new accent color.
-    sed -i 's/text.focus.color=#dfdfdf/text.focus.color=white/g' $HOME/.config/Kvantum/Graphite/GraphiteDark.kvconfig
+If you want to use any other color scheme than default, then check <a href="https://github.com/KF-Art/Graphite-kvantum-colors">my own fork</a> of Kvantum Graphite theme, which adds more variants. If using Cereus Linux or Void with cereus-extra repository, then you can install them from repositories:
 
+    # xbps-install -S Graphite-kvantum-theme
+    
 ## Install Graphite GTK theme
 
 In order to preserve the desktop consistency, we'll also be using the GTK variant of Graphite. I'm choosing the blackness version too. Change the theme color scheme by the one you prefer or use <code>all</code> to install all of them. The <code>rimless</code> parameter is to avoid the color border in apps like Firefox.
@@ -80,6 +71,10 @@ In order to preserve the desktop consistency, we'll also be using the GTK varian
     git -C /tmp clone https://github.com/vinceliuice/Graphite-gtk-theme
     cd /tmp/Graphite-gtk-theme
     ./install.sh --theme teal --tweaks black rimless -d $HOME/.local/share/themes
+
+If using Cereus Linux or Void with cereus-extra repository, then you can install them from repositories:
+
+    # xbps-install -S Graphite-gtk-theme-black
     
 Now we need to go to Preferences -> LXQt Settings -> Appearance, check the "Set GTK themes" option and select the recently installed theme.
 
@@ -93,11 +88,19 @@ There is a lot of beautiful icon themes, but I will focus on two: Reversal and T
     cd /tmp/Reversal-icon-theme
     ./install.sh green # by default install all variants
 
+If using Cereus Linux or Void with cereus-extra repository, then you can install them from repositories:
+
+    # xbps-install -S reversal-icon-theme-green
+
 ## Tela icon theme
 
     git -C /tmp clone https://github.com/vinceliuice/Tela-icon-theme
     cd /tmp/Tela-icon-theme
     ./install.sh manjaro # use -a to install all variants
+
+If using Cereus Linux or Void with cereus-extra repository, then you can install them from repositories:
+
+    # xbps-install -S Tela-icon-theme-manjaro
 
 ## Apply icon theme
 
@@ -140,7 +143,21 @@ FreeBSD:
 
 ## Monospace font
 
-Currently, my favorite monospace font is JetBrains Mono NL. So, we will install it. This process will be universal for all distributions. You can use any font you like, of course.
+Currently, my favorite monospace font is JetBrains Mono NL. So, we will install it. You can use any font you like, of course.
+
+Arch Linux, Manjaro and derivatives (Using yay in this example):
+
+    yay -S nerd-fonts-jetbrains-mono
+
+Cereus Linux or Void with cereus-extra repository:
+
+    # xbps-install -S jetbrains-mono-font
+
+OpenSUSE (using opi):
+
+    opi jetbrains-mono-nerd-fonts
+
+For the rest of distros, this process will be universal for all distributions.
 
 First, fetch the font itself:
 
@@ -150,11 +167,11 @@ First, fetch the font itself:
 
 Now, the installation path will vary between GNU/Linux and FreeBSD. 
 
-    #GNU/Linux
-    sudo cp -r fonts /usr/share
+    #GNU/Linux (as root)
+    # cp -r fonts /usr/share/
 
-    #FreeBSD
-    sudo cp -r fonts /usr/local/share
+    #FreeBSD (as root)
+    # cp -r fonts /usr/local/share/
 
 Finally, update the font cache and list.
 
@@ -162,7 +179,7 @@ Finally, update the font cache and list.
 
 ## Apply UI font
 
-Go to Preferences -> LXQt Settings -> Appearance -> Font, and select out new installed font at "Font name". Also, adjust the size accordingly to your screen. Do the same process for PCManFM-Qt desktop, doing right click -> Desktop Preferences -> Select font (I recommend to change the wallpaper also).
+Go to Preferences -> LXQt Settings -> Appearance -> Font, and select our new installed font at "Font name". Also, adjust the size accordingly to your screen. Do the same process for PCManFM-Qt desktop, doing right click -> Desktop Preferences -> Select font (I recommend to change the wallpaper also).
 
 Alternatively, you can do this at <code>$HOME/.config/lxqt/lxqt.conf</code> and <code>$HOME/.config/pcmanfm-qt/lxqt</code>, respectively (requires restart LXQt):
 
@@ -251,93 +268,13 @@ Now configure a shortcut to easily lock your screen. Go to Preferences -> LXQt S
     Enabled=true
     Exec=betterlockscreen, -l
 
-# Autolock and suspend
+## Set as default lockscreen service
+As you may noticed, after installing and configuring Betterlockscreen, when trying to lock the screen via LXQt option, it will attempt to use xscreensaver. We have to change this. Add this to the end of <code>~/.config/lxqt/lxqt.conf</code>:
 
-As you may noticed, even installing a lockscreen manager, it will not lock automatically. To do this, we will use <code>xidlehook</code>, which detects keyboard and mouse inactivity and then runs a desired command. XAutolock also exists, but it has the disadvantage of running the command even if we are watching videos, for example.
+    [Screensaver]
+    lock_command=betterlockscreen -l
 
-## Install Xidlehook
-
-### Void Linux
-
-Xidlehook is not at the repositories, but there is PR template which I used to build the package and upload it to GitHub. Also, there is a template available if you need to rebuild and/or update the package. Get your correspondant package for your architecture and libc. For this example I will use the x86_64 (glibc) package. All builds are <a href="https://github.com/KF-Art/xidlehook-void/releases">here</a>.
-
-    $ wget https://github.com/KF-Art/xidlehook-void/releases/download/v0.10.0_1/xidlehook-0.10.0_1.x86_64.xbps
-
-Next, index the new downloaded package and install it.
-
-    $ xbps-rindex -a *.xbps
-    # xbps-install -R . xidlehook
-    
-### Arch Linux and derivatives
-
-If you use an Arch based distribution, then you are lucky. The package is already at AUR. For this example I will be using Yay, but feel free to use any AUR helper.
-
-    $ yay -S xidlehook
-
-## Build Xidlehook on distributions where is not available
-
-From this point, all distributions require to manually build Xidlehook.
-
-### OpenSUSE
-
-First, install build dependencies:
-
-    # zypper in libxcb-devel libXss-devel libpulse0 pkgconf-pkg-config rust cargo
-
-### FreeBSD
-
-Install build dependencies:
-
-    # pkg install libxcb libXScrnSaver pulseaudio pkgconf rust
-
-### Build
-
-Build Xidlehook:
-
-    $ cargo install xidlehook --features pulse --bins
-
-This will create two binaries at <code>~/.cargo/bin</code>. You can add this location to PATH, move them to another home location, or move them to <code>/usr/local/bin/</code> to use it at system level. In this case we will do the last one.
-
-    $ cd $HOME/.cargo/bin/
-    # cp ./* /usr/local/bin
-
-## Test Xidlehook
-
-Once installed, we must test if Xidlehook works normally. Run this test command:
-
-    xidlehook --not-when-fullscreen --not-when-audio --timer 5 "betterlockscreen -l" "" &
-
-If everything goes well, it should lock the screen passed five seconds of inactivity, except if you are playing audio or a window is fullscreen. You can now kill the process.
-
-## Add Xidlehook to autostart
-
-Me need to create an autostart entry at Preferences -> LXQt Settings -> Session Settings -> Autostart.
-
-At "command" section introduce Xidlehook with your preferred parameters. For example, to lock the screen passed 5 minutes, and then, another 5 minutes later suspend the machine, at SystemD linux distributions:
-
-        xidlehook --not-when-fullscreen --not-when-audio --timer 300 "betterlockscreen -l" "" --timer 300 "systemctl suspend" "" &
-
-Same as above, but for elogind-based distributions:
-
-        xidlehook --not-when-fullscreen --not-when-audio --timer 300 "betterlockscreen -l" "" --timer 300 "loginctl suspend" "" &
-
-To just lock the screen, passed 5 minutes of inactivity:
-
-        xidlehook --not-when-fullscreen --not-when-audio --timer 300 "betterlockscreen -l" "" &
-
-The timer works in seconds. 
-Unfortunately, at FreeBSD I don't find yet a way to suspend the system via command line.
-
-option. Alternatively, you can create the entry manually. For example:
-    
-    # $HOME/.config/autostart/xidlehook.desktop
-    [Desktop Entry]
-    Exec='xidlehook --not-when-fullscreen --not-when-audio --timer 300 "betterlockscreen -l" "" &'
-    Name=Autolock service.
-    Type=Application
-    Version=1.0
-
-Save your entry, logout, login again and <i>voilá</i>, the screen now locks automatically.
+Logout and voilá, now it works. Also, this will be work for autolock.
 
 # Window Manager
 The window manager is one of the most important things in our desktop environment, so we must customize it too. The main focus will be the default WM, Openbox; but also I'll include instructions to integrate it with Fluxbox, and maybe in the future, i3wm.
@@ -346,28 +283,149 @@ The window manager is one of the most important things in our desktop environmen
 
 ### Install a theme
 
-The chosen theme is Licorice, from Sweet Tastes Themes. We'll make some changes to adapt and integrate with Graphite color scheme, and enable window title (if wanted). First we need to clone the theme repository, and copy it to our home directory.
-    
-    git -C /tmp clone https://www.opencode.net/ju1464/Sweet_Tastes_Themes.git
-    cp -r /tmp/Sweet_Tastes_Themes/Licorice ~/.local/share/themes
+The chosen theme is Licorice, from Sweet Tastes Themes but a fork which adapts to Graphite-black. 
 
-Next, we will change the color scheme in order to keep the desktop consistency with our installed theme:
+    git clone https://github.com/CereusLinuxProject/licorice-openbox-theme -C /tmp
+    cp -r /tmp/licorice-openbox-theme ~/.local/share/themes/
 
-    obtheme=$HOME/.local/share/themes/Licorice/openbox-3/themerc
-    sed -i 's/#282828/#0f0f0f/g' $obtheme
-    sed -i 's/#464141/#0f0f0f/g' $obtheme
-    sed -i 's/window.inactive.label.text.color: #0f0f0f/window.inactive.label.text.color: #ffffff/g' $obtheme
-    sed -i 's/window.active.label.text.color: #0f0f0f/window.active.label.text.color: #ffffff/g' $obtheme
-    
 ### Apply theme and change fonts
 
 Go to Preferences -> Openbox Settings, and select the Licorice theme, also go to Fonts section and change them all to Roboto, or your preferred font. This also can be done at <code>~/.config/openbox/rc.xml</code>.
 
+### [Extra] configure manual tiling
+
+It is also possible to configure manual tiling on Openbox. Add this code to <code>~/.config/openbox/rc.xml</code> under keyboard section:
+
+   <!-- Windows Tiling -->
+    <keybind key="W-KP_1">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <x>0</x>
+        <y>-0</y>
+        <width>50%</width>
+        <height>50%</height>
+      </action>
+    </keybind>
+    <keybind key="W-KP_2">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <x>0</x>
+        <y>-0</y>
+        <width>100%</width>
+        <height>50%</height>
+      </action>
+    </keybind>
+    <keybind key="W-KP_3">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <x>-0</x>
+        <y>-0</y>
+        <width>50%</width>
+        <height>50%</height>
+      </action>
+    </keybind>
+    <keybind key="W-KP_4">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <x>0</x>
+        <y>0</y>
+        <width>50%</width>
+        <height>100%</height>
+      </action>
+    </keybind>
+    <keybind key="W-KP_5">
+      <action name="MaximizeFull"/>
+    </keybind>
+    <keybind key="W-KP_6">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <x>-0</x>
+        <y>0</y>
+        <width>50%</width>
+        <height>100%</height>
+      </action>
+    </keybind>
+    <keybind key="W-KP_7">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <x>0</x>
+        <y>0</y>
+        <width>50%</width>
+        <height>50%</height>
+      </action>
+    </keybind>
+    <keybind key="W-KP_8">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <x>0</x>
+        <y>0</y>
+        <width>100%</width>
+        <height>50%</height>
+      </action>
+    </keybind>
+    <keybind key="W-KP_9">
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <x>-0</x>
+        <y>0</y>
+        <width>50%</width>
+        <height>50%</height>
+      </action>
+    </keybind>
+    <!-- Move -->
+    <keybind key="W-A-Up">
+      <action name="MoveRelative">
+        <x>0</x>
+        <y>-20</y>
+      </action>
+    </keybind>
+    <keybind key="W-A-Down">
+      <action name="MoveRelative">
+        <x>0</x>
+        <y>20</y>
+      </action>
+    </keybind>
+    <keybind key="W-A-Left">
+      <action name="MoveRelative">
+        <x>-20</x>
+        <y>0</y>
+      </action>
+    </keybind>
+    <keybind key="W-A-Right">
+      <action name="MoveRelative">
+        <x>20</x>
+        <y>0</y>
+      </action>
+    </keybind>
+    <!-- Resize -->
+    <keybind key="C-A-Right">
+      <action name="ResizeRelative">
+        <right>20</right>
+      </action>
+    </keybind>
+    <keybind key="C-A-Left">
+      <action name="ResizeRelative">
+        <right>-20</right>
+      </action>
+    </keybind>
+    <keybind key="C-A-Down">
+      <action name="ResizeRelative">
+        <bottom>20</bottom>
+      </action>
+    </keybind>
+    <keybind key="C-A-Up">
+      <action name="ResizeRelative">
+        <bottom>-20</bottom>
+      </action>
+    </keybind>
+
+An example of how to use this can be found in <a href="https://github.com/CereusLinuxProject/cereus-mklive/blob/master/includedir/lxqt/etc/skel/.config/openbox/rc.xml>"Cereus Linux default Openbox configuration.</a>
+
 ## Fluxbox
 
-It would appear strange use Fluxbox instead of Openbox on LXQt, but is has a lot of potential for our LXQt desktop. Mainly on the point of configuring manual tiling (which I didn't get to work at Openbox). First, of course, install Fluxbox:
+It would appear strange use Fluxbox instead of Openbox on LXQt, but is has a lot of potential for our LXQt desktop (also is the WM I use with LXQt). Please note that this require at least LXQt 1.0.0, as in older versions this will have multiple issues. I'll be covering some few aspects, but in the future I'll do a complete guide to configure Fluxbox. First, of course, install Fluxbox:
 
-Void Linux:
+Void Linux and derivatives:
 
     # xbps-install -S fluxbox
 
@@ -409,12 +467,12 @@ Go to Preferences -> LXQt Settings -> Session Settings and change the window man
 
 ### Panel fix
 
-If you find that the panel does not display correctly, create this script. I recommend to save it at <code>~/scripts</code> (you will need to install <code>psmisc</code> if your distro does not have it already):
+If you find that the panel does not display correctly, create this script. I recommend to save it at <code>~/scripts</code>:
 
     #!/bin/sh
 
     # ~/scripts/wait-panel.sh
-    killall -q fluxbox
+    pkill fluxbox
     sleep 1; fluxbox &
 
 Make it executable:
