@@ -2,7 +2,7 @@
 Personal tuning for the LXQt desktop to make it more beautiful.
 
 # Overview
-LXQt desktop is relatively easy to tune up, but for some reason a lot of people think that is horrible and cannot be customized. Today I'm here to prove that is not true. To summarize, we will use Kvantum, <code>picom-jonaburg-fix</code>, <code>xidlehook</code>, Graphite themes, Reversal icons, Roboto fonts and Betterlockscreen.
+LXQt desktop is relatively easy to tune up, but for some reason a lot of people think that is horrible and cannot be customized. Today I'm here to prove that is not true. To summarize, we will use Kvantum, Graphite themes, Reversal icons, Roboto fonts and Betterlockscreen.
 
 # Desktop themes
 The first thing we'll do is to install a well-looking Kvantum theme. First you will need, obviously, to install Kvantum.
